@@ -5,12 +5,15 @@ from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 
 db = SQLAlchemy()
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+
 class Restaurant(db.Model):
     __tablename__ = 'restaurants'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    address = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String, nullable=False)
+    location = db.Column(db.String, nullable=False) 
     restaurant_pizzas = db.relationship('RestaurantPizza', back_populates='restaurant')
 
     def to_dict(self, include_pizzas=False):
